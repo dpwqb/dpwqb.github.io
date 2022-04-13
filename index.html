@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>主页</title>
+	</head>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			outline: none;
+			box-sizing: border-box;
+		}
+		a{
+		position: fixed;
+		font-size: larger;
+		letter-spacing: 16px;
+		color: #c36;
+		text-decoration: none;
+		}
+		body{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+			background: linear-gradient(-135deg,#c850c0,#4158d0);
+		}
+		.wrapper{
+			width: 450px;
+			background-color: #fff;
+			padding: 30px;
+			box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+		}
+		.wrapper .input-data{
+			width: 100%;
+			height: 40px;
+			position: relative;
+		}
+		.wrapper .input-data input{
+			width: 100%;
+			height: 100%;
+			border: none;
+			border-bottom: 2px solid silver;
+			font-size: 17px;
+		}
+		.input-data input:focus ~ label,
+		.input-data input:valid ~ label{
+			transform: translateY(-20px);
+			font-size: 15px;
+			color: #4158D0;
+		}
+		.wrapper .input-data label{
+			position: absolute;
+			bottom: 10px;
+			left: 0;
+			color: grey;
+			pointer-events: none;
+			transition: all 0.3s ease;
+		}
+		.wrapper .input-data .underline{
+			position: absolute;
+			bottom: 0px;
+			height: 2px;
+			width: 100%;
+		}
+		.input-data .underline:before{
+			position: absolute;
+			content: "";
+			height: 100%;
+			width: 100%;
+			background: #4158D0;
+			transform: scaleX(0);
+			transition:transform 0.3s ease;
+		}
+		.input-data input:focus ~ .underline:before,
+		.input-data input:valid ~ .underline:before{
+			transform: scaleX(1);
+		}
+	</style>
+	<body>
+		<div class="wrapper">
+			<form action="http://cn.bing.com" class="input-data">
+				<input type="text" name="q" required="" value="" />
+				<div class="underline"></div>
+				<label>Bing搜索</label>
+			</form>
+		</div>
+	</body>
+</html>
