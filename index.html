@@ -11,6 +11,23 @@
 			box-sizing: border-box;
 			outline: none;
 		}
+		#backtop{
+			position: fixed;
+			font-size: larger;
+			letter-spacing: 16px;
+			text-decoration: none;
+			right: 0px;
+			bottom: 100px;
+			background-color: rgba(135, 206, 250, 0.6);
+			color: rgb(255, 0, 0);
+		}
+		#backtop:active{
+			font-size: x-small;
+		}
+		#backtop:hover{
+			background-color: greenyellow;
+			font-size: x-large;
+		}
 		#navigation1{
 			color: rgb(180, 64, 200);
 			font-size: large;
@@ -41,6 +58,13 @@
 			letter-spacing: 16px;
 			color: rgb(180, 64, 200);
 			text-decoration: none;
+		}
+		#boxroot{
+			width: 1080px;
+			height: 5000px;
+			margin: 0 auto;
+			background-image: linear-gradient(0deg,white,rgba(249, 255, 191, 0.3));
+			padding: 20px;
 		}
 		body{
 			display: flex;
@@ -104,16 +128,19 @@
 		}
 	</style>
 	<body>
-		<div class="wrapper">
-			<form action="http://cn.bing.com" class="input-data">
-				<input type="text" name="q" required="" value="" />
-				<div class="underline"></div>
-				<label>Bing搜索</label>
-			</form>
-			<br />
-			<a id="navigation1" href="./网页小游戏/象棋/index.html">→象棋←</a>
-			<a id="navigation2" href="./网页小游戏/飞机大战/play.html">→飞机大战←</a>
-			<a id="navigation3" href="./网页小游戏/切水果/index.html">→切水果←</a>
+		<div id="boxroot">
+			<div class="wallpaper">
+				<form action="http://cn.bing.com" class="input-data">
+					<input type="text" name="q" required="" value="" />
+					<div class="underline"></div>
+					<label>Bing搜索</label>
+				</form>
+				<br />
+				<a id="navigation1" href="./网页小游戏/象棋/index.html">→象棋←</a>
+				<a id="navigation2" href="./网页小游戏/飞机大战/play.html">→飞机大战←</a>
+				<a id="navigation3" href="./网页小游戏/切水果/index.html">→切水果←</a>
+			</div>
+			<a id="backtop" href="#top">回<br />到<br />顶<br />部</a>
 		</div>
 	</body>
 </html>
