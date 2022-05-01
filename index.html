@@ -6,61 +6,87 @@
 	</head>
 	<style type="text/css">
 		*{
-			margin: 0;
 			padding: 0;
-			outline: none;
+			margin: 0;
 			box-sizing: border-box;
+			outline: none;
+		}
+		#navigation1{
+			color: rgb(180, 64, 200);
+			font-size: large;
+			float: left;
+			transition: all 0.1s;
+		}
+		#navigation1:hover{
+			font-size: x-large;
+		}
+		#navigation2{
+			color: rgb(240, 88, 88);
+			float:right;
+			transition: all 0.1s;
+		}
+		#navigation2:hover{
+			font-size: large;
+		}
+		#navigation3{
+			color: rgb(240, 88, 88);
+			float:right;
+			transition: all 0.1s;
+		}
+		#navigation3:hover{
+			font-size: large;
 		}
 		a{
-		position: fixed;
-		font-size: larger;
-		letter-spacing: 16px;
-		color: #c36;
-		text-decoration: none;
+			font-size: small;
+			letter-spacing: 16px;
+			color: rgb(180, 64, 200);
+			text-decoration: none;
 		}
 		body{
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			min-height: 100vh;
-			background: linear-gradient(-135deg,#c850c0,#4158d0);
+			background: linear-gradient(90deg,rgb(209, 218, 137),rgba(65, 208, 129, 0.8));
 		}
-		.wrapper{
-			width: 450px;
-			background-color: #fff;
-			padding: 30px;
-			box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+		.wallpaper{
+			width: 400px;
+			padding: 20px;
+			border-radius: 30px;
+			float: right;
+			background-color: rgb(255, 255, 255);
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
 		}
-		.wrapper .input-data{
+		.wallpaper .input-data{
 			width: 100%;
 			height: 40px;
 			position: relative;
 		}
-		.wrapper .input-data input{
+		.wallpaper .input-data input{
 			width: 100%;
 			height: 100%;
 			border: none;
-			border-bottom: 2px solid silver;
+			border-bottom: 3px solid rgb(192, 192, 192);
 			font-size: 17px;
 		}
 		.input-data input:focus ~ label,
 		.input-data input:valid ~ label{
-			transform: translateY(-20px);
-			font-size: 15px;
-			color: #4158D0;
+			transform: translateY(-30px);
+			font-size: 10px;
+			color: rgb(180, 64, 200);
 		}
-		.wrapper .input-data label{
+		.wallpaper .input-data label{
 			position: absolute;
-			bottom: 10px;
+			bottom: 5px;
 			left: 0;
-			color: grey;
+			color: rgb(240, 88, 88);
 			pointer-events: none;
-			transition: all 0.3s ease;
+			transition: all 0.5s;
 		}
-		.wrapper .input-data .underline{
+		.wallpaper .input-data .underline{
 			position: absolute;
 			bottom: 0px;
-			height: 2px;
+			height: 3px;
 			width: 100%;
 		}
 		.input-data .underline:before{
@@ -68,9 +94,9 @@
 			content: "";
 			height: 100%;
 			width: 100%;
-			background: #4158D0;
+			background: rgba(200, 50, 100, 0.8);
 			transform: scaleX(0);
-			transition:transform 0.3s ease;
+			transition:transform 0.5s;
 		}
 		.input-data input:focus ~ .underline:before,
 		.input-data input:valid ~ .underline:before{
@@ -85,11 +111,9 @@
 				<label>Bing搜索</label>
 			</form>
 			<br />
-			<a href="./网页小游戏/象棋/index.html">→象棋←</a>
-			<br />
-			<a href="./网页小游戏/飞机大战/play.html">→飞机大战←</a>
-			<br />
-			<a href="./网页小游戏/切水果/index.html">→切水果←</a>
+			<a id="navigation1" href="./网页小游戏/象棋/index.html">→象棋←</a>
+			<a id="navigation2" href="./网页小游戏/飞机大战/play.html">→飞机大战←</a>
+			<a id="navigation3" href="./网页小游戏/切水果/index.html">→切水果←</a>
 		</div>
 	</body>
 </html>
