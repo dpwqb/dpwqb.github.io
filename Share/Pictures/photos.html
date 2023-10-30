@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>图片分享</title>
+	<meta content="" name="description">
+	<meta content="dpoqb,Photo,吕振宗" name="keywords">
+	<link href="assets/img/logo.png" rel="icon">
+	<link href="assets/img/logo.png" rel="apple-touch-icon">
+	<link
+		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap"
+		rel="stylesheet">
+	<link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+	<link href="assets/vendor/aos/aos.css" rel="stylesheet">
+	<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+	<link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+	<link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+	<link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+	<link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dlwd.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<header id="header" class="fixed-top d-flex align-items-center ">
+		<div class="container d-flex justify-content-between align-items-center">
+
+			<div class="logo">
+				<h1 class="text-light"><a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid">
+						<span>Photos</span></a>
+				</h1>
+			</div>
+
+			<nav id="navbar" class="navbar">
+				<ul>
+					<li><a class="active " href="/index.html">主页</a></li>
+				<i class="bi bi-list mobile-nav-toggle"></i>
+			</nav><!-- .navbar -->
+
+		</div>
+	</header><!-- End Header -->
+
+	<main id="main">
+
+		<!-- ======= Our Portfolio Section ======= -->
+		<section class="breadcrumbs">
+			<div class="container">
+
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>摄影概览</h2>
+					<ol>
+						<li><a href="/index.html">主页</a></li>
+						<li>摄影概览</li>
+					</ol>
+				</div>
+
+			</div>
+		</section><!-- End Our Portfolio Section -->
+
+		<!-- ======= Portfolio Section ======= -->
+		<section class="portfolio">
+			<div class="container">
+
+				<div class="row">
+					<div class="col-lg-12">
+						<ul id="portfolio-flters">
+							<li data-filter="*" class="filter-active">全</li>
+							<li data-filter=".filter-app">物</li>
+							<li data-filter=".filter-card">景</li>
+							<li data-filter=".filter-web">人</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="row portfolio-container" data-aos="fade-up" data-aos-easing="ease-in-out"
+					data-aos-duration="500">
+
+					<!-- <div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/example.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>example</h3>
+								<div>
+									<a href="./img/compression/example.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="example">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/example.jpg" title="example-download" download="example.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div> -->
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-app">
+						<div class="portfolio-item">
+							<img src="./img/min/grocery-store.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>grocery-store</h3>
+								<div>
+									<a href="./img/compression/grocery-store.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="grocery-store">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/grocery-store.jpg" title="grocery-store-download" download="grocery-store.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/白宫.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>白宫</h3>
+								<div>
+									<a href="./img/compression/白宫.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="白宫">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/白宫.jpg" title="白宫-download" download="白宫.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/彩虹.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>彩虹</h3>
+								<div>
+									<a href="./img/compression/彩虹.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="彩虹">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/彩虹.jpg" title="彩虹-download" download="彩虹.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/彩虹摩天轮.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>彩虹摩天轮</h3>
+								<div>
+									<a href="./img/compression/彩虹摩天轮.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="彩虹摩天轮">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/彩虹摩天轮.jpg" title="彩虹摩天轮-download" download="彩虹摩天轮.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/彩虹喷泉.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>彩虹喷泉</h3>
+								<div>
+									<a href="./img/compression/彩虹喷泉.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="彩虹喷泉">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/彩虹喷泉.jpg" title="彩虹喷泉-download" download="彩虹喷泉.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/车水马龙.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>车水马龙</h3>
+								<div>
+									<a href="./img/compression/车水马龙.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="车水马龙">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/车水马龙.jpg" title="车水马龙-download" download="车水马龙.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/枫叶.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>枫叶</h3>
+								<div>
+									<a href="./img/compression/枫叶.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="枫叶">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/枫叶.jpg" title="枫叶-download" download="枫叶.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-app">
+						<div class="portfolio-item">
+							<img src="./img/min/嘎.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>嘎</h3>
+								<div>
+									<a href="./img/compression/嘎.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="嘎">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/嘎.jpg" title="嘎-download" download="嘎.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-app">
+						<div class="portfolio-item">
+							<img src="./img/min/嘎嘎嘎.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>嘎嘎嘎</h3>
+								<div>
+									<a href="./img/compression/嘎嘎嘎.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="嘎嘎嘎">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/嘎嘎嘎.jpg" title="嘎嘎嘎-download" download="嘎嘎嘎.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-app">
+						<div class="portfolio-item">
+							<img src="./img/min/高楼.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>高楼</h3>
+								<div>
+									<a href="./img/compression/高楼.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="高楼">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/高楼.jpg" title="高楼-download" download="高楼.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/海岸线.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>海岸线</h3>
+								<div>
+									<a href="./img/compression/海岸线.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="海岸线">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/海岸线.jpg" title="海岸线-download" download="海岸线.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/海面落日.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>海面落日</h3>
+								<div>
+									<a href="./img/compression/海面落日.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="海面落日">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/海面落日.jpg" title="海面落日-download" download="海面落日.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-app">
+						<div class="portfolio-item">
+							<img src="./img/min/花中蛐虫.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>花中蛐虫</h3>
+								<div>
+									<a href="./img/compression/花中蛐虫.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="花中蛐虫">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/花中蛐虫.jpg" title="花中蛐虫-download" download="花中蛐虫.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-app">
+						<div class="portfolio-item">
+							<img src="./img/min/疾驰.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>疾驰</h3>
+								<div>
+									<a href="./img/compression/疾驰.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="疾驰">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/疾驰.jpg" title="疾驰-download" download="疾驰.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-app">
+						<div class="portfolio-item">
+							<img src="./img/min/君悦酒店.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>君悦酒店</h3>
+								<div>
+									<a href="./img/compression/君悦酒店.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="君悦酒店">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/君悦酒店.jpg" title="君悦酒店-download" download="君悦酒店.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-web">
+						<div class="portfolio-item">
+							<img src="./img/min/老夫老妻.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>老夫老妻</h3>
+								<div>
+									<a href="./img/compression/老夫老妻.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="老夫老妻">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/老夫老妻.jpg" title="老夫老妻-download" download="老夫老妻.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/落日晚霞.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>落日晚霞</h3>
+								<div>
+									<a href="./img/compression/落日晚霞.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="落日晚霞">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/落日晚霞.jpg" title="落日晚霞-download" download="落日晚霞.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-app">
+						<div class="portfolio-item">
+							<img src="./img/min/起飞.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>起飞</h3>
+								<div>
+									<a href="./img/compression/起飞.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="起飞">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/起飞.jpg" title="起飞-download" download="起飞.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/前进.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>前进</h3>
+								<div>
+									<a href="./img/compression/前进.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="前进">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/前进.jpg" title="前进-download" download="前进.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/桥头.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>桥头</h3>
+								<div>
+									<a href="./img/compression/桥头.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="桥头">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/桥头.jpg" title="桥头-download" download="桥头.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/闪电.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>闪电</h3>
+								<div>
+									<a href="./img/compression/闪电.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="闪电">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/闪电.jpg" title="闪电-download" download="闪电.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/求索.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>求索</h3>
+								<div>
+									<a href="./img/compression/求索.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="求索">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/求索.jpg" title="求索-download" download="求索.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/桃花.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>桃花</h3>
+								<div>
+									<a href="./img/compression/桃花.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="桃花">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/桃花.jpg" title="桃花-download" download="桃花.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/晚霞.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>晚霞</h3>
+								<div>
+									<a href="./img/compression/晚霞.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="晚霞">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/晚霞.jpg" title="晚霞-download" download="晚霞.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-app">
+						<div class="portfolio-item">
+							<img src="./img/min/小黄花.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>小黄花</h3>
+								<div>
+									<a href="./img/compression/小黄花.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="小黄花">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/小黄花.jpg" title="小黄花-download" download="小黄花.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/星海.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>星海</h3>
+								<div>
+									<a href="./img/compression/星海.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="星海">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/星海.jpg" title="星海-download" download="星海.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/星海鸥.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>星海鸥</h3>
+								<div>
+									<a href="./img/compression/星海鸥.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="星海鸥">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/星海鸥.jpg" title="星海鸥-download" download="星海鸥.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-app">
+						<div class="portfolio-item">
+							<img src="./img/min/修狗.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>修狗</h3>
+								<div>
+									<a href="./img/compression/修狗.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="修狗">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/修狗.jpg" title="修狗-download" download="修狗.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/旋风日落.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>旋风日落</h3>
+								<div>
+									<a href="./img/compression/旋风日落.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="旋风日落">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/旋风日落.jpg" title="旋风日落-download" download="旋风日落.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/雪映余辉.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>雪映余辉</h3>
+								<div>
+									<a href="./img/compression/雪映余辉.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="雪映余辉">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/雪映余辉.jpg" title="雪映余辉-download" download="雪映余辉.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-4 col-md-6 portfolio-wrap filter-card">
+						<div class="portfolio-item">
+							<img src="./img/min/云浪.jpg" class="img-fluid" alt="">
+							<div class="portfolio-info">
+								<h3>云浪</h3>
+								<div>
+									<a href="./img/compression/云浪.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="云浪">
+										<i class="bx bx-plus"></i></a>
+									<a href="./img/original/云浪.jpg" title="云浪-download" download="云浪.jpg">
+										<i class="bx bx-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+
+			</div>
+		</section><!-- End Portfolio Section -->
+
+	</main><!-- End #main -->
+
+	<!-- ======= Footer ======= -->
+	<footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+
+		<div class="wallpaper">
+			<form action="http://cn.bing.com" class="input-data">
+				<input type="text" name="q" required="" value=""
+					placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpoqb" />
+				<div class="underline"></div>
+				<label>Search</label>
+			</form>
+		</div>
+		<div class="footer-newsletter">
+			<div class="container">
+				<div class="row">
+
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-lg-3 col-md-6 footer-links">
+						<h4>List Of Links</h4>
+						<ul>
+							<li><i class="bx bx-chevron-right"></i> <a href="/index.html">主页</a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-3 col-md-6 footer-links">
+						<h4>Others</h4>
+						<ul>
+							<li><i class="bx bx-chevron-right"></i> <a href=".Share">还没想好加什么</a></li>
+							<!-- <li><i class="bx bx-chevron-right"></i> <a href="#">其他</a></li>
+							<li><i class="bx bx-chevron-right"></i> <a href="#">Other</a></li> -->
+						</ul>
+					</div>
+
+					<div class="col-lg-3 col-md-6 footer-contact">
+						<h4>Contact Me</h4>
+						<p>
+							<strong>QQ：</strong> 1902407956<br>
+							<strong>邮箱：</strong> <a class="lianjie" href="mailto:lzz@dpoqb.top" style="text-decoration:none;">lzz@dpoqb.top</a><br>
+						</p>
+
+					</div>
+
+					<div class="col-lg-3 col-md-6 footer-info">
+						<h3>About Me</h3>
+						<p class="suojin">一个 ‘ i ’ 占比100%的 “ INTJ ” 。</p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+		</div>
+	</footer><!-- End Footer -->
+
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+	<!-- Vendor JS Files -->
+	<script src="assets/vendor/purecounter/purecounter.js"></script>
+	<script src="assets/vendor/aos/aos.js"></script>
+	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+	<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+	<script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+	<script src="assets/vendor/php-email-form/validate.js"></script>
+
+	<!-- Template Main JS File -->
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

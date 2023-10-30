@@ -1,0 +1,98 @@
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        outline: none;
+    }
+.suojin{
+  text-indent: 2em;
+}
+.video_back {
+    min-width: 100%;
+    min-height:100%;
+    width: 100%;
+    height: 100%;
+    /*生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位。可以根据实际情况修改*/
+    position: absolute;
+    /*这里我试了一下好像只要是矩形的四个角的的点都行,也就是说right:0;bottom:0;也可以*/
+    left: 0;
+    top: 0;
+    /*将视频放在元素的堆叠顺序最底层，以防覆盖其他东西*/
+    z-index: 1;
+    /*被替换的内容正好填充元素的内容框。整个对象将完全填充此框。如果对象的宽高比与内容框不相匹配，那么该对象将被拉伸以适应内容框。*/
+    object-fit: contain;
+}
+    .wallpaper{
+        width: 300px;
+        padding: 30px;
+        border-radius: 30px;
+        margin: auto;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
+        transform: translateY(50px);
+    }
+    .wallpaper .input-data{
+        width: 100%;
+        height: 40px;
+        position: relative;
+    }
+    .wallpaper .input-data input{
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-bottom: 3px solid rgb(192, 192, 192);
+        font-size: 17px;
+    }
+    .input-data input:focus ~ label,
+    .input-data input:valid ~ label{
+        transform: translateY(30px);
+        font-size: 20px;
+        font-weight: bolder;
+        color: rgb(180, 64, 200);
+    }
+    .wallpaper .input-data label{
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        color: rgb(200, 50, 100);
+        pointer-events: none;
+        transition: all 0.5s;
+    }
+    .wallpaper .input-data .underline{
+        position: absolute;
+        bottom: 0px;
+        height: 3px;
+        width: 100%;
+    }
+    .input-data .underline:before{
+        position: absolute;
+        content: "";
+        height: 100%;
+        width: 100%;
+        background: rgba(200, 50, 100, 0.8);
+        transform: scaleX(0);
+        transition:transform 0.5s;
+    }
+    .input-data input:focus ~ .underline:before,
+    .input-data input:valid ~ .underline:before{
+        transform: scaleX(1);
+    }
+.addshadow{
+    box-shadow: 10px 10px 10px rgba(0,0,0,.5);
+}
+.lianjie:link {
+    color:white;
+    text-decoration:none;
+}
+.lianjie:visited {
+    color:ghostwhite;
+    text-decoration:none;
+}
+.lianjie:hover {
+    color:lightskyblue;
+    text-decoration:none;
+}
+.lianjie:active {
+    color:royalblue;
+    text-decoration:none;
+}
