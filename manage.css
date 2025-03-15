@@ -1,0 +1,318 @@
+/* 布局样式 */
+body {
+    display: flex;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+.sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 10px;
+}
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+/* 状态栏样式 */
+.header {
+    height: 60px;
+    background-color: #59d; /* 背景色 */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 左右内容分开对齐 */
+    padding: 0 20px;
+}
+.header-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+.username {
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; /* 圆形头像 */
+    margin-right: 10px;
+}
+.logout-button {
+    padding: 5px 10px;
+    font-size: 14px;
+    color: white;
+    background-color: #e74c3c; /* 红色背景 */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.logout-button:hover {
+    background-color: #c0392b; /* 悬停时更深的红色 */
+}
+.content {
+    flex-grow: 1;
+    overflow: auto;
+    padding: 20px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+th {
+    background-color: #f2f2f2;
+}
+/* 确保表格容器支持横向滚动 */
+.scrollable-table {
+    /* 允许横向滚动 */
+    overflow-x: auto;
+    /* 限制最大宽度为父容器宽度 */
+    max-width: 100%;
+    /* 防止内容换行 */
+    white-space: nowrap;
+}
+.filter-section {
+    margin-bottom: 20px;
+}
+.filter-section input,
+.filter-section select {
+    margin-right: 10px;
+}
+/* 左侧菜单栏样式 */
+.sidebar {
+    width: 128px;
+    /* 更深的背景色 */
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px;
+    /* 固定高度为视口高度 */
+    height: 100vh;
+    /* 添加阴影效果 */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.sidebar li {
+    /* 增加菜单项之间的间距 */
+    margin-bottom: 10px;
+}
+.sidebar a {
+    text-decoration: none;
+    /* 浅色字体 */
+    color: #ecf0f1;
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    padding: 10px 15px;
+    /* 圆角效果 */
+    border-radius: 5px;
+    /* 平滑过渡效果 */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+/* 菜单项悬停时 */
+.sidebar a:hover {
+    background-color: #3498db;
+}
+/* 选中菜单项时 */
+.sidebar a.active {
+    background-color: #ff7e5f;
+}
+/* 标签页样式 */
+.tabs {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #59d, #eee);
+}
+.tabs li {
+    margin-left: 10px;
+}
+.tabs a {
+    text-decoration: none;
+    color: black;
+    padding: 10px 20px;
+    display: block;
+    /* 上方圆角效果 */
+    border-radius: 10px 10px 0 0;
+    /* 平滑过渡效果 */
+    position: relative;
+    /* 默认背景色 */
+    background: linear-gradient(to bottom, #59d, #eee);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+.tabs a:hover:not(.active) {
+    transition: all 0.5s ease;
+    /* 颜色渐变 */
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    /* 梯形形状 */
+    clip-path: polygon(
+        20% 20%,
+        80% 20%,
+        90% 100%,
+        10% 100%
+    );
+    /* 文字颜色变为白色 */
+    color: white;
+    /* 轻微放大效果 */
+    transform: scale(1.1) translateY(2px) translateZ(0);
+}
+.tabs a.active {
+    background: #eee;
+    /* 梯形形状 */
+    clip-path: polygon(
+        20% 20%,
+        80% 20%,
+        90% 100%,
+        10% 100%
+    );
+    /* 轻微放大效果 */
+    transform: scale(1.1) translateY(2px);
+    /* 放在顶层 */
+    z-index: 2;
+}
+/* 内容区域样式 */
+.content {
+    padding: 20px;
+    /* 背景色 */
+    background-color: #eee;
+    /* 添加顶部边框 */
+    border-top: 1px solid #ddd;
+    flex-grow: 1;
+    /* 允许滚动 */
+    overflow-y: auto;
+    z-index: 1;
+}
+.form-container {
+    /* 限制表单宽度 */
+    max-width: 95%;
+    /* 居中显示 */
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    /* 圆角效果 */
+    border-radius: 8px;
+    /* 阴影效果 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.form-container h2 {
+    margin-top: 0;
+    font-size: 24px;
+    /* 标题颜色 */
+    color: #333;
+    /* 居中对齐 */
+    text-align: center;
+}
+/* 员工基本信息表格样式 */
+.employee-info-table td {
+    border: none;
+    width: 50%; /* 每列宽度为50%，保证左右两列等宽 */
+}
+/* 表单组样式 */
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin: 0 10px 5px;
+    font-weight: bold;
+    /* 标签颜色 */
+    color: #555;
+}
+.form-group input,
+.form-group select {
+    box-sizing: border-box;
+    width: calc(100% - 20px);;
+    padding: 10px;
+    margin: 0 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    /* 圆角效果 */
+    border-radius: 4px;
+    /* 平滑过渡效果 */
+    transition: border-color 0.3s ease;
+}
+.form-group input:focus,
+.form-group select:focus {
+    /* 聚焦时的边框颜色 */
+    border-color: #3498db;
+    outline: none;
+    /* 聚焦时的阴影效果 */
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+.form-group.email-container {
+    margin-bottom: 10px; /* 减小上下间距 */
+}
+.form-group.email-container label {
+    margin-bottom: 5px; /* 减小标签与输入框之间的间距 */
+}
+/* 按钮组样式 */
+.button-group {
+    display: flex;
+    /* 按钮之间留有间距 */
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.button-group button {
+    flex: 1;
+    margin: 0 10px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+#saveButton {
+    /* 保存按钮背景色 */
+    background-color: #27ae60;
+}
+#saveButton:hover {
+    /* 保存按钮悬停时背景色 */
+    background-color: #219653;
+}
+#returnButton {
+    /* 返回按钮背景色 */
+    background-color: #e74c3c;
+}
+#returnButton:hover {
+    /* 返回按钮悬停时背景色 */
+    background-color: #c0392b;
+}
+.email-container {
+    display: flex;
+    flex-direction: column;
+}
+.email-input-group {
+    display: flex;
+    align-items: center; /* 垂直居中对齐 */
+}
+.email-input-group span {
+    font-size: 14px;
+    color: #555;
+}
+.email-input-group select {
+    flex: none; /* 下拉框固定宽度 */
+    width: auto; /* 自适应内容宽度 */
+}
+/* 错误输入框样式 */
+.error {
+    border-color: #e74c3c; /* 红色边框 */
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.8); /* 红色阴影 */
+}
