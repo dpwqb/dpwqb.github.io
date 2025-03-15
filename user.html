@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>权限对象管理</title>
+    <link href="./assets/css/manage.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 左侧菜单栏 -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="./user-list.html" class="active">员工信息管理</a></li>
+            <li><a href="./permission-obj-list.html">权限对象管理</a></li>
+            <li><a href="./user-permission-obj-list.html">员工权限管理</a></li>
+        </ul>
+    </div>
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 状态栏 -->
+        <div class="header">
+            <div class="header-title">权限对象管理系统</div>
+            <div class="header-actions">
+                <span class="username">管理员</span>
+                <img src="/img/logo.png" alt="头像" class="avatar">
+                <a href="/logout">
+                    <button class="logout-button">退出登录</button>
+                </a>
+            </div>
+        </div>
+        <ul class="tabs">
+            <li><a href="#" onclick="loadTab('all')">一览</a></li>
+            <li><a href="#" onclick="loadTab('add')">录入</a></li>
+            <li><a href="#" onclick="loadTab('edit')">编辑</a></li>
+            <li><a href="#" onclick="loadTab('detail')">详情</a></li>
+        </ul>
+        <!-- 内容区域 -->
+        <div class="content">
+            <div class="form-container">
+                <h2 id="formTitle">员工基本信息</h2>
+                <form id="permissionForm">
+                    <table class="employee-info-table">
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="zhname">姓名</label>
+                                    <input type="text" id="zhname" name="zhname" required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="jpname">姓名（日）</label>
+                                    <input type="text" id="jpname" name="jpname" required>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="enname">姓名（英）</label>
+                                    <input type="text" id="enname" name="enname" required>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group email-container">
+                                    <label for="emailsbitech">邮箱</label>
+                                    <div class="email-input-group">
+                                        <input type="text" id="emailsbitech" name="emailsbitech" required>
+                                        <span>@</span>
+                                        <select id="domain" name="domain" required>
+                                            <option value="sbitech.com">sbitech.com</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="department">部门</label>
+                                    <select id="department" name="department" required>
+                                        <option value="">请选择</option>
+                                        <!-- <option value="开发部">开发部</option>
+                                        <option value="其他">其他</option> -->
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="group">组别</label>
+                                    <select id="group" name="group" required>
+                                        <option value="">请选择</option>
+                                        <!-- <option value="AB">AB</option>
+                                        <option value="PO">PO</option>
+                                        <option value="AC">AC</option>
+                                        <option value="DA">DA</option> -->
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr>
+                    <h2 id="formTitle">权限分配区域</h2>
+                    <div class="form-group">
+                        <table>
+                            <tr>
+                                <label for="account">
+                                    <th>账户</th>
+                                </label>
+                                <th><input type="checkbox" id="account" name="permissionObjType"></th>
+                                <label for="server">
+                                    <th>服务器</th>
+                                </label>
+                                <th><input type="checkbox" id="server" name="server"></th>
+                            </tr>
+                            <tr>
+                                <td>账户1</td>
+                                <td><input type="checkbox" id="account1" name="account"></td>
+                                <td>服务器1</td>
+                                <td><input type="checkbox" id="server1" name="server"></td>
+                            </tr>
+                            <tr>
+                                <td>账户2</td>
+                                <td><input type="checkbox" id="account2" name="account"></td>
+                                <td>服务器2</td>
+                                <td><input type="checkbox" id="account2" name="server"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" id="saveButton">保存</button>
+                        <button type="button" id="returnButton">返回</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/js/jquery-1.8.3.min.js"></script>
+    <script src="/assets/js/api/http.js"></script>
+    <script src="/assets/js/api/user.js"></script>
+    <script>
+
+        // 页面加载完成后绑定事件
+        document.addEventListener('DOMContentLoaded', () => {
+            bindErrorRemoval();
+            fetchDepartmentsAndGroups(); // 获取部门与组别数据
+        });
+
+        // 获取部门与组别数据
+        async function fetchDepartmentsAndGroups() {
+            try {
+                const response = await get(`/int/v1/department`);
+                const departments = response.data;
+                populateDepartmentSelect(departments);
+                document.getElementById('department').addEventListener('change', () => updateGroupSelect(departments));
+            } catch (error) {
+                console.error('获取部门与组别数据失败:', error);
+            }
+        }
+
+        // 填充部门下拉框
+        function populateDepartmentSelect(departments) {
+            const departmentSelect = document.getElementById('department');
+            departments.forEach(department => {
+                const option = document.createElement('option');
+                option.value = department.department;
+                option.textContent = department.department;
+                departmentSelect.appendChild(option);
+            });
+        }
+
+        // 更新组别下拉框
+        function updateGroupSelect(departments) {
+            const departmentSelect = document.getElementById('department');
+            const selectedDepartment = departmentSelect.value;
+            const groupSelect = document.getElementById('group');
+            groupSelect.innerHTML = ''; // 清空组别下拉框
+
+            const department = departments.find(dept => dept.department === selectedDepartment);
+            if (department) {
+                department.group.forEach(group => {
+                    const option = document.createElement('option');
+                    option.value = group;
+                    option.textContent = group;
+                    groupSelect.appendChild(option);
+                });
+            }
+        }
+
+        // 加载标签页内容
+        function loadTab(tabName) {
+            let sessionValue = sessionStorage.getItem(`user_${tabName}_id`);
+            location.href = `./user.html?mode=${tabName}&id=${sessionValue}`;
+        }
+
+        // 获取URL参数
+        const params = new URLSearchParams(window.location.search);
+        const mode = params.get('mode');
+        const id = params.get('id');
+        const formTitle = document.getElementById('formTitle');
+        const permissionForm = document.getElementById('permissionForm');
+        const saveButton = document.getElementById('saveButton');
+        const returnButton = document.getElementById('returnButton');
+
+        // 动态设置标签页的 active 状态
+        document.querySelectorAll('.tabs a').forEach(tab => {
+            const tabMode = tab.getAttribute('onclick').match(/loadTab\('(\w+)'\)/)[1];
+            if (tabMode === mode) {
+                tab.classList.add('active');
+            }
+        });
+
+        // 根据模式设置页面标题和表单行为
+        switch (mode) {
+            case 'add': formTitle.textContent += '录入';
+                break;
+            case 'edit': formTitle.textContent += '编辑';
+                fetchFormData(id);
+                break;
+            case 'detail': formTitle.textContent += '详情';
+                fetchFormData(id);
+                disableForm();
+                saveButton.style.display = 'none';
+                // 隐藏保存按钮
+                break;
+            default: location.href = './user-list.html';
+        }
+
+        // 禁用表单（排除返回按钮）
+        function disableForm() {
+            Array.from(permissionForm.elements).forEach(element => {
+                if (element !== returnButton) {
+                    element.disabled = true;
+                }
+            });
+        } let formData = undefined;
+
+        // 获取表单数据
+        async function fetchFormData(id) {
+            try {
+                const response = await get(`/int/v1/staff`, { id });
+                formData = response.data;
+                console.log(formData);
+                document.getElementById('zhname').value = formData[0].zhName || '';
+                document.getElementById('jpname').value = formData[0].jpName || '';
+                document.getElementById('enname').value = formData[0].enName || '';
+                document.getElementById('emailsbitech').value = formData[0].emailSbitech.split('@')[0] || '';
+                const selectElement = document.getElementById('department');
+                Array.from(selectElement.options).forEach(option => {
+                    if (option.value === formData[0].departmentName) {
+                        option.selected = true;
+                    }
+                });
+                const selectGroup = document.getElementById('group');
+                Array.from(selectGroup.options).forEach(option => {
+                    if (option.value === formData[0].groupName) {
+                        option.selected = true;
+                    }
+                });
+            } catch (error) {
+                console.error('获取数据失败:', error);
+            }
+        }
+
+        // 保存表单数据
+        saveButton.addEventListener('click', async () => {
+            formData = {
+                zhName: document.getElementById('zhname').value,
+                jpName: document.getElementById('jpname').value,
+                enName: document.getElementById('enname').value,
+                emailSbitech: document.getElementById('emailsbitech').value + '@' + document.getElementById('domain').value,
+                departmentName: document.getElementById('department').value,
+                groupName: document.getElementById('group').value,
+            };
+
+            // 调用表单验证
+            if (!validateForm(formData)) {
+                return;
+            }
+
+            try {
+                if (mode === 'add') {
+                    await post('/int/v1/staff', formData);
+                } else if (mode === 'edit') {
+                    formData.id = id;
+                    await put('/int/v1/staff', formData);
+                } alert('保存成功！');
+                location.href = './user-list.html';
+            } catch (error) {
+                console.error('保存失败:', error);
+                alert('保存失败，请重试！');
+            }
+        });
+
+        // 返回按钮
+        returnButton.addEventListener('click', () => {
+            location.href = './user-list.html';
+        });
+
+        // 绑定点击事件以移除 error 样式
+        function bindErrorRemoval() {
+            document.querySelectorAll('.form-group input, .form-group select').forEach(input => {
+                input.addEventListener('click', () => {
+                    input.classList.remove('error');
+                });
+            });
+        }
+
+        // 页面加载完成后绑定事件
+        document.addEventListener('DOMContentLoaded', () => {
+            bindErrorRemoval();
+        });
+
+        // 表单验证函数
+        function validateForm(formData) {
+            let isValid = true;
+
+            // 字段配置：包含字段名、对应的 DOM ID、提示名称和最大长度
+            const fields = [
+                { name: 'zhName', id: 'zhname', showName: '姓名（中）', maxLength: 20 },
+                { name: 'jpName', id: 'jpname', showName: '姓名（日）', maxLength: 20 },
+                { name: 'enName', id: 'enname', showName: '姓名（英）', maxLength: 20 },
+                { name: 'emailSbitech', showName: '邮箱', id: 'emailsbitech' },
+                { name: 'departmentName', showName: '部门', id: 'department' },
+                { name: 'groupName', showName: '组别', id: 'group' },
+            ];
+
+            // 清除所有错误样式
+            document.querySelectorAll('.form-group input, .form-group select').forEach(input => {
+                input.classList.remove('error');
+            });
+
+            // 错误消息集合
+            const errorMessages = [];
+
+            // 验证必填项和长度限制
+            fields.forEach(field => {
+                const value = formData[field.name];
+                const element = document.getElementById(field.id);
+
+                // 必填项检查
+                if (!value) {
+                    element.classList.add('error');
+                    errorMessages.push(`“${field.showName}”是必填项`);
+                    isValid = false;
+                    return; // 跳过后续检查
+                }
+
+                // 长度限制检查
+                if (field.maxLength && value.length > field.maxLength) {
+                    element.classList.add('error');
+                    errorMessages.push(`“${field.showName}”的长度不能超过 ${field.maxLength} 个字符`);
+                    isValid = false;
+                }
+            });
+
+            // 邮箱格式检查
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailElement = document.getElementById('emailsbitech');
+            if (!emailPattern.test(formData.emailSbitech)) {
+                emailElement.classList.add('error');
+                errorMessages.push('请输入有效的邮箱地址');
+                isValid = false;
+            }
+
+            // 显示错误提示
+            if (errorMessages.length > 0) {
+                alert(errorMessages.join('\n')); // 将所有错误信息合并显示
+            }
+
+            return isValid;
+        }
+
+    </script>
+</body>
+
+</html>

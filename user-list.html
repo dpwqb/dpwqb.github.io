@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>权限对象管理系统</title>
+    <link href="./assets/css/manage.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 左侧菜单栏 -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="./user-list.html" class="active">员工信息管理</a></li>
+            <li><a href="./permission-obj-list.html">权限对象管理</a></li>
+            <li><a href="./user-permission-obj-list.html">员工权限管理</a></li>
+        </ul>
+    </div>
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 状态栏 -->
+        <div class="header">
+            <div class="header-title">权限对象管理系统</div>
+            <div class="header-actions">
+                <span class="username">管理员</span>
+                <img src="/img/logo.png" alt="头像" class="avatar">
+                <a href="/logout">
+                    <button class="logout-button">退出登录</button>
+                </a>
+            </div>
+        </div>
+        <ul class="tabs">
+            <li><a href="#" onclick="loadTab('all')" class="active">一览</a></li>
+            <li><a href="#" onclick="loadTab('add')">录入</a></li>
+            <li><a href="#" onclick="loadTab('edit')">编辑</a></li>
+            <li><a href="#" onclick="loadTab('detail')">详情</a></li>
+        </ul>
+        <!-- 内容区域 -->
+        <div class="content">
+            <!-- 筛选条件 -->
+            <div class="filter-section">
+                <label for="nameFilter">员工:</label>
+                <input id="nameFilter" type="text" list="name" size=10 autocomplete="off">
+                <datalist id="name">
+                    <option value="staff1">员工1</option>
+                    <option value="staff2">员工2</option>
+                    <option value="staff3">员工3</option>
+                    <option value="staff4">员工4</option>
+                </datalist>
+                <label for="departmentFilter">部门:</label>
+                <input id="departmentFilter" type="text" list="department" size=10 autocomplete="off">
+                <datalist id="department">
+                    <option value="开发部">开发部</option>
+                </datalist>
+                <label for="groupFilter">组别:</label>
+                <input id="groupFilter" type="text" list="group" size=10 autocomplete="off">
+                <datalist id="group">
+                    <option value="AB">AB</option>
+                    <option value="PO">PO</option>
+                    <option value="AC">AC</option>
+                    <option value="DA">DA</option>
+                </datalist>
+                <button onclick="applyFilter()">查询</button>
+            </div>
+            <!-- 表格 -->
+            <div class="scrollable-table">
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>姓名（日）</th>
+                            <th>姓名（英）</th>
+                            <th>部门</th>
+                            <th>组别</th>
+                            <th>邮箱</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 数据行将通过 JavaScript 动态填充 -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- 分页控件 -->
+            <div id="pagination">
+                <!-- 分页按钮将通过 JavaScript 动态生成 -->
+            </div>
+        </div>
+    </div>
+    <script src="/assets/js/jquery-1.8.3.min.js"></script>
+    <script src="/assets/js/api/http.js"></script>
+    <script src="/assets/js/api/user.js"></script>
+    <script>
+        // 加载标签页内容
+        function loadTab(tabName) {
+            let sessionValue = sessionStorage.getItem(`user_${tabName}_id`);
+            location.href = `./user.html?mode=${tabName}&id=${sessionValue}`;
+        } let enName = null;
+        let departmentName = null;
+        let groupName = null;
+        // 应用筛选条件
+        function applyFilter() {
+            enName = document.getElementById('nameFilter').value;
+            departmentName = document.getElementById('departmentFilter').value;
+            groupName = document.getElementById('groupFilter').value;
+            fetchData();
+        }
+        // 获取数据并填充表格
+        async function fetchData(page = 1, limit = 10) {
+            try {
+                const response = await get('/int/v1/staff/all', { enName, departmentName, groupName, page, limit });
+                const data = response.data;
+                const totalRecords = response.count;
+                // 总记录数
+                const totalPages = Math.ceil(totalRecords / limit);
+                // 计算总页数
+                const tbody = document.querySelector('#dataTable tbody');
+                tbody.innerHTML = '';
+                data.forEach(item => {
+                    const row = `<tr>
+                        <td>${item.zhName}</td>
+                        <td>${item.jpName}</td>
+                        <td>${item.enName}</td>
+                        <td>${item.departmentName}</td>
+                        <td>${item.groupName}</td>
+                        <td>${item.emailSbitech}</td>
+                        <td>
+                            <button onclick="editItem(${item.id})">修改</button>
+                            <button onclick="viewItem(${item.id})">详情</button>
+                            <button onclick="deleteItem(${item.id})">删除</button>
+                        </td>
+                    </tr>`;
+                    tbody.innerHTML += row;
+                });
+                renderPagination(page, totalPages);
+                // 渲染分页控件
+            } catch (error) {
+                console.error('数据加载失败:', error);
+            }
+        }
+        // 渲染分页控件
+        function renderPagination(currentPage, totalPages) {
+            const paginationDiv = document.getElementById('pagination');
+            paginationDiv.innerHTML = '';
+            // 清空现有分页按钮
+            if (totalPages <= 1) return;
+            // 如果只有一页，不显示分页控件
+
+            // 上一页按钮
+            const prevButton = document.createElement('button');
+            prevButton.innerText = '上一页';
+            prevButton.disabled = currentPage === 1;
+            prevButton.onclick = () => fetchData(currentPage - 1);
+            paginationDiv.appendChild(prevButton);
+            // 页码按钮
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.innerText = i;
+                pageButton.style.fontWeight = i === currentPage ? 'bold' : 'normal';
+                pageButton.onclick = () => fetchData(i);
+                paginationDiv.appendChild(pageButton);
+            }
+            // 下一页按钮
+            const nextButton = document.createElement('button');
+            nextButton.innerText = '下一页';
+            nextButton.disabled = currentPage === totalPages;
+            nextButton.onclick = () => fetchData(currentPage + 1);
+            paginationDiv.appendChild(nextButton);
+        }
+        // 编辑按钮
+        function editItem(id) {
+            sessionStorage.setItem(`user_edit_id`, `${id}`);
+            location.href = `./user.html?id=${id}&mode=edit`;
+        }
+        // 查看详情按钮
+        function viewItem(id) {
+            sessionStorage.setItem(`user_detail_id`, `${id}`);
+            location.href = `./user.html?id=${id}&mode=detail`;
+        }
+        // 删除按钮
+        async function deleteItem(id) {
+            if (confirm('确定要删除该记录吗？')) {
+                try {
+                    await del(`/int/v1/staff/${id}`);
+                    fetchData();
+                    // 刷新表格数据
+                } catch (error) {
+                    console.error('删除失败:', error);
+                }
+            }
+        }
+        // 初始化页面
+        let currentPage = 1;
+        fetchData();
+
+    </script>
+</body>
+
+</html>
