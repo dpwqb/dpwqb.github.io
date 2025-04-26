@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<title>PVE 双显卡直通 All In Boom</title>
+	<!-- 引入 Highlight.js 代码高亮样式 -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-light.min.css">
+	<!-- 页面基础样式 -->
+	<style>
+		body {
+			font-family: "Helvetica Neue", Arial, sans-serif;
+			background-color: #fdfdfd;
+			color: #333;
+			line-height: 1.6;
+			margin: 0;
+			padding: 20px;
+			max-width: 800px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		h1 {
+			text-align: center;
+			color: #2c3e50;
+			margin-bottom: 1em;
+		}
+
+		h2 {
+			color: #34495e;
+			margin-top: 1.5em;
+			margin-bottom: 0.5em;
+			border-bottom: 2px solid #dcdcdc;
+			padding-bottom: 0.3em;
+		}
+
+		pre {
+			background: #f5f5f5;
+			padding: 1em;
+			overflow-x: auto;
+			border-radius: 4px;
+			line-height: 1.4;
+		}
+
+		code {
+			font-family: "Consolas", "Courier New", monospace;
+		}
+
+		.code-container {
+			position: relative;
+			margin: 1em 0;
+		}
+
+		.copy-btn {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			padding: 2px 8px;
+			font-size: 12px;
+			background-color: #eee;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			cursor: pointer;
+		}
+
+		.copy-btn:hover {
+			background-color: #ddd;
+		}
+
+		ol,
+		ul {
+			margin: 0.5em 0 1em 1.5em;
+		}
+
+		li {
+			margin: 0.3em 0;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>PVE 双显卡直通 代码参考</h1>
+
+	<h2>修改 Grub 配置</h2>
+	<!-- 修改 GRUB 配置，启用 IOMMU 和 ACS 功能 -->
+	<div class="code-container">
+		<button class="copy-btn" data-clipboard-target="#code1">复制代码</button>
+		<pre><code id="code1" class="language-bash"># 编辑 GRUB 配置
+nano /etc/default/grub
+
+# Intel 平台修改
+GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on iommu=pt pcie_acs_override=downstream,multifunction nofb textonly nomodeset video=efifb:off"
+
+# AMD 平台修改
+GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on iommu=pt pcie_acs_override=downstream,multifunction nofb textonly nomodeset video=efifb:off"
+
+# 更新 GRUB
+update-grub
+</code></pre>
+	</div>
+
+	<h2>OpenWrt 磁盘镜像</h2>
+	<!-- 上传 OpenWrt 固件并导入到虚拟机磁盘 -->
+	<div class="code-container">
+		<button class="copy-btn" data-clipboard-target="#code2">复制代码</button>
+		<pre><code id="code2" class="language-bash"># 上传 OpenWrt 固件
+scp openwrt-x64-R23.4.1-squashfs-combined-efi.img root@192.168.22.22:~/
+
+# 创建虚拟机后转换镜像并导入
+qemu-img convert -f raw -O qcow2  openwrt-x64-R23.4.1-squashfs-combined-efi.img vm-101-disk-1.qcow2
+qm importdisk 101 vm-101-disk-1.qcow2 local-lvm
+</code></pre>
+	</div>
+
+	<h2>上传文件</h2>
+	<div class="code-container">
+		<button class="copy-btn" data-clipboard-target="#code3">复制代码</button>
+		<pre><code id="code3" class="language-bash"># 上传 OpenCore 引导镜像到服务器
+scp OpenCore-v15.iso.gz root@192.168.22.22:~/
+
+# 解压 OpenCore 镜像并移动到 ISO 模板库
+gzip -d ./OpenCore-v15.iso.gz
+mv ./OpenCore-v15.iso /var/lib/vz/template/iso/OpenCore-v15.iso
+
+# 上传 AMD 核显 vBIOS
+scp vbios_1636.rom root@192.168.22.22:~/
+
+# 上传修补过的 OVMF 固件
+scp PVE7.0-2_OVMF_R7_4800H.fd root@192.168.22.22:~/
+</code></pre>
+	</div>
+
+	<h2>避免循环引导</h2>
+	<!-- 添加 KVM 参数以避免 macOS 虚拟机循环引导 -->
+	<div class="code-container">
+		<button class="copy-btn" data-clipboard-target="#code4">复制代码</button>
+		<pre><code id="code4" class="language-bash"># 添加 KVM 参数
+echo "options kvm ignore_msrs=Y" >> /etc/modprobe.d/kvm.conf && update-initramfs -k all -u
+</code></pre>
+	</div>
+
+	<h2>修改 Windows 虚拟机配置</h2>
+	<!-- 在 Windows 虚拟机配置文件中添加启动参数 -->
+	<div class="code-container">
+		<button class="copy-btn" data-clipboard-target="#code5">复制代码</button>
+		<pre><code id="code5" class="language-bash"># 编辑 Windows 虚拟机配置
+nano /etc/pve/qemu-server/Windows虚拟机ID.conf
+
+# 添加 Windows VM 启动参数（使用 OVMF 固件）
+args: -bios /root/PVE7.0-2_OVMF_R7_4800H.fd -cpu host,-hypervisor,kvm=off
+</code></pre>
+	</div>
+
+	<h2>创建 Mac 虚拟机</h2>
+	<!-- 在 Proxmox VE GUI 中创建 macOS 虚拟机的各项配置 -->
+	<ol>
+		<li><strong>操作系统:</strong>
+			<ul>
+				<li>类别：Other</li>
+				<li>ISO 镜像：OpenCore</li>
+			</ul>
+		</li>
+		<li><strong>系统:</strong>
+			<ul>
+				<li>显卡：Vmware 兼容</li>
+				<li>Qemu 代理：勾选</li>
+				<li>BIOS：UEFI</li>
+				<li>机器：q35-6.0</li>
+			</ul>
+		</li>
+		<li><strong>硬盘:</strong>
+			<ul>
+				<li>总线：VirtIO</li>
+				<li>缓存：Write Back（不安全）</li>
+				<li>SSD 仿真：√</li>
+			</ul>
+		</li>
+		<li><strong>CPU:</strong>
+			<ul>
+				<li>核心数：2 的幂</li>
+				<li>类型：Penryn</li>
+				<li>Numa：启用</li>
+			</ul>
+		</li>
+		<li><strong>网络:</strong>
+			<ul>
+				<li>模型：VirtIO</li>
+			</ul>
+		</li>
+		<li><strong>添加虚拟机安装盘</strong></li>
+	</ol>
+
+	<h2>修改 MacOS 虚拟机配置</h2>
+	<!-- 编辑 macOS 虚拟机的配置文件并添加启动参数 -->
+	<div class="code-container">
+		<button class="copy-btn" data-clipboard-target="#code6">复制代码</button>
+		<pre><code id="code6" class="language-bash"># 编辑 MacOS 虚拟机配置
+nano /etc/pve/qemu-server/MacOS虚拟机ID.conf
+
+# MacOS 启动参数
+args: -device isa-applesmc,osk="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc" -smbios type=2 -device usb-kbd,bus=ehci.0,port=2 -global nec-usb-xhci.msi=off -cpu Penryn,kvm=on,vendor=GenuineIntel,+kvm_pv_unhalt,+kvm_pv_eoi,+hypervisor,+invtsc,+pcid,+ssse3,+sse4.2,+popcnt,+avx,+avx2,+aes,+fma,+fma4,+bmi1,+bmi2,+xsave,+xsaveopt,check
+</code></pre>
+	</div>
+
+	<!-- 引入 Highlight.js 代码高亮和 Clipboard.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+	<script>hljs.highlightAll(); new ClipboardJS('.copy-btn');</script>
+
+</body>
+
+</html>
