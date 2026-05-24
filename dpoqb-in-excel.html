@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>dpoqb in Excel（Beta）</title>
+
+	<style>
+		:root {
+			--bg: #ffffff;
+			--bg-secondary: #f5f7fb;
+			--card: #ffffff;
+			--text: #1f2328;
+			--text-secondary: #5f6b7a;
+			--border: #e3e8ef;
+			--primary: #4f7cff;
+			--primary-light: rgba(79, 124, 255, 0.12);
+			--tip-bg: rgba(79, 124, 255, 0.08);
+			--info-bg: rgba(22, 163, 74, 0.08);
+			--success: #16a34a;
+			--shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+			--code-bg: #f1f4f8;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--bg: #0f1115;
+				--bg-secondary: #171b23;
+				--card: #1b212c;
+				--text: #f3f4f6;
+				--text-secondary: #b3bcc8;
+				--border: #2b3442;
+				--primary: #7aa7ff;
+				--primary-light: rgba(122, 167, 255, 0.14);
+				--tip-bg: rgba(122, 167, 255, 0.10);
+				--info-bg: rgba(22, 163, 74, 0.12);
+				--success: #4ade80;
+				--shadow: 0 10px 30px rgba(0, 0, 0, 0.32);
+				--code-bg: #242c39;
+			}
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			margin: 0;
+			font-family:
+				Inter,
+				"PingFang SC",
+				"Microsoft YaHei",
+				sans-serif;
+			background: var(--bg);
+			color: var(--text);
+			line-height: 1.8;
+		}
+
+		.layout {
+			display: flex;
+			min-height: 100vh;
+		}
+
+		.sidebar {
+			width: 290px;
+			position: sticky;
+			top: 0;
+			height: 100vh;
+			overflow-y: auto;
+			background: var(--bg-secondary);
+			border-right: 1px solid var(--border);
+			padding: 28px 20px;
+		}
+
+		.sidebar h2 {
+			margin-top: 0;
+			margin-bottom: 20px;
+			font-size: 22px;
+		}
+
+		.sidebar nav a {
+			display: block;
+			color: var(--text-secondary);
+			text-decoration: none;
+			padding: 10px 14px;
+			border-radius: 10px;
+			margin-bottom: 6px;
+			transition: all 0.2s ease;
+			font-size: 14px;
+		}
+
+		.sidebar nav a:hover {
+			background: var(--primary-light);
+			color: var(--primary);
+		}
+
+		.content {
+			flex: 1;
+			max-width: 1180px;
+			margin: 0 auto;
+			padding: 48px;
+		}
+
+		.hero {
+			background:
+				radial-gradient(circle at top right, var(--primary-light), transparent 40%),
+				var(--card);
+			border: 1px solid var(--border);
+			border-radius: 28px;
+			padding: 52px;
+			box-shadow: var(--shadow);
+			margin-bottom: 42px;
+		}
+
+		.badge {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			background: var(--primary-light);
+			color: var(--primary);
+			padding: 6px 14px;
+			border-radius: 999px;
+			font-size: 13px;
+			font-weight: 700;
+			margin-bottom: 22px;
+		}
+
+		.hero h1 {
+			margin: 0 0 18px;
+			font-size: 48px;
+			line-height: 1.15;
+		}
+
+		.hero p {
+			font-size: 18px;
+			color: var(--text-secondary);
+			max-width: 860px;
+		}
+
+		section {
+			margin-bottom: 64px;
+		}
+
+		h2 {
+			font-size: 34px;
+			margin-bottom: 22px;
+		}
+
+		h3 {
+			font-size: 24px;
+			margin-top: 0;
+			margin-bottom: 14px;
+		}
+
+		p {
+			color: var(--text-secondary);
+		}
+
+		strong {
+			color: var(--text);
+		}
+
+		ul {
+			padding-left: 24px;
+		}
+
+		li {
+			margin-bottom: 10px;
+			color: var(--text-secondary);
+		}
+
+		.card {
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 24px;
+			padding: 32px;
+			box-shadow: var(--shadow);
+		}
+
+		.grid {
+			display: grid;
+			gap: 22px;
+		}
+
+		.grid-2 {
+			grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+		}
+
+		.feature-card {
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 22px;
+			padding: 28px;
+			box-shadow: var(--shadow);
+		}
+
+		.callout {
+			border-radius: 18px;
+			padding: 20px 22px;
+			margin: 22px 0;
+			border: 1px solid var(--border);
+		}
+
+		.tip {
+			background: var(--tip-bg);
+		}
+
+		.info {
+			background: var(--info-bg);
+		}
+
+		.callout-title {
+			font-weight: 700;
+			margin-bottom: 10px;
+			color: var(--text);
+		}
+
+		code {
+			background: var(--code-bg);
+			padding: 3px 8px;
+			border-radius: 8px;
+			font-size: 0.95em;
+			word-break: break-all;
+		}
+
+		.tabs {
+			margin-top: 18px;
+		}
+
+		.tab-buttons {
+			display: flex;
+			gap: 12px;
+			margin-bottom: 28px;
+			flex-wrap: wrap;
+		}
+
+		.tab-button {
+			border: none;
+			background: var(--bg-secondary);
+			color: var(--text-secondary);
+			padding: 12px 18px;
+			border-radius: 12px;
+			cursor: pointer;
+			font-size: 15px;
+			font-weight: 600;
+			transition: all 0.2s ease;
+			border: 1px solid var(--border);
+		}
+
+		.tab-button.active {
+			background: var(--primary);
+			color: white;
+			border-color: var(--primary);
+		}
+
+		.tab-panel {
+			display: none;
+		}
+
+		.tab-panel.active {
+			display: block;
+		}
+
+		.step {
+			padding-bottom: 28px;
+			margin-bottom: 28px;
+			border-bottom: 1px dashed var(--border);
+		}
+
+		.step:last-child {
+			margin-bottom: 0;
+			padding-bottom: 0;
+			border-bottom: none;
+		}
+
+		.step-title {
+			font-size: 22px;
+			font-weight: 700;
+			margin-bottom: 14px;
+		}
+
+		.download-btn {
+			display: inline-block;
+			background: var(--primary);
+			color: #fff;
+			padding: 12px 24px;
+			border-radius: 10px;
+			text-decoration: none;
+			font-size: 15px;
+			font-weight: 600;
+			transition: all 0.2s ease;
+			margin: 8px 0;
+		}
+
+		.download-btn:hover {
+			opacity: 0.85;
+			transform: translateY(-1px);
+			box-shadow: 0 4px 14px rgba(79, 124, 255, 0.35);
+		}
+
+		img {
+			width: 100%;
+			border-radius: 16px;
+			margin-top: 18px;
+			border: 1px solid var(--border);
+			box-shadow: var(--shadow);
+		}
+
+		.footer {
+			margin-top: 80px;
+			padding-top: 30px;
+			border-top: 1px solid var(--border);
+			text-align: center;
+			color: var(--text-secondary);
+			font-size: 14px;
+		}
+
+		@media (max-width: 960px) {
+			.layout {
+				flex-direction: column;
+			}
+
+			.sidebar {
+				width: 100%;
+				height: auto;
+				position: relative;
+				border-right: none;
+				border-bottom: 1px solid var(--border);
+			}
+
+			.content {
+				padding: 24px;
+			}
+
+			.hero {
+				padding: 34px;
+			}
+
+			.hero h1 {
+				font-size: 36px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+	<aside class="sidebar">
+		<h2>dpoqb in Excel</h2>
+
+		<nav>
+			<a href="#overview">产品概述</a>
+			<a href="#advantages">优势亮点</a>
+			<a href="#scenarios">适用场景</a>
+			<a href="#setup">配置步骤</a>
+		</nav>
+	</aside>
+
+	<main class="content">
+
+		<section class="hero">
+			<div class="badge">Beta</div>
+
+			<h1>dpoqb in Excel</h1>
+
+			<p>
+				dpoqb in Excel 是适配 Excel 官方的 AI 插件，以侧边栏集成和展示，
+				通过自然语言交互赋能表格工作流，实现数据解释、公式生成、
+				图表可视化、公式错误检测与修复、跨 sheet 页查询等任务的自动化执行。
+			</p>
+		</section>
+
+		<section id="overview">
+			<h2>产品概述</h2>
+
+			<div class="card">
+
+				<p>
+					dpoqb in Excel 是适配 Excel 官方的 AI 插件，以侧边栏集成和展示，
+					通过自然语言交互赋能表格工作流，实现
+					<strong>数据解释、公式生成、图表可视化、公式错误检测与修复、跨sheet页查询</strong>
+					等任务的自动化执行。
+				</p>
+
+				<p>
+					核心由 GLM-5 模型、Agent SDK/Agent loop、Skills等模块驱动，
+					适配 Microsoft 365 的 Excel 环境，其核心交互与能力如下：
+				</p>
+
+				<ul>
+					<li>
+						<strong>自然语言驱动：</strong>
+						在侧边栏输入指令（如 “制作可视化图表”“修复 #REF! 错误”），
+						GLM 直接解析并操作表格，生成可追溯的单元格级引用。
+					</li>
+
+					<li>
+						<strong>闭环执行流程：</strong>
+						Agent 拆解任务 → 调用相应的 tools →
+						Agent Loop 校验结果 →
+						在 Excel 中直接修改并高亮变更，全程不离开表格环境。
+					</li>
+				</ul>
+
+				<div class="callout tip">
+					<div class="callout-title">Tip</div>
+					dpoqb in Excel 插件支持多种模型配置及调用。
+				</div>
+
+				<div class="callout info">
+					<div class="callout-title">Info</div>
+
+					<p><strong>视频展示功能点：</strong></p>
+
+					<p><strong>1. 图表生成：</strong> 一键生成可视化并美化</p>
+
+					<p><strong>2. 错误修复：</strong> 自动检测并修复公式错误</p>
+
+					<p><strong>3. 多 Sheet 导航/vlookup：</strong> 跨工作表自动操作</p>
+				</div>
+
+			</div>
+		</section>
+
+		<section id="advantages">
+			<h2>优势亮点</h2>
+
+			<div class="grid grid-2">
+
+				<div class="feature-card">
+					<h3>长上下文深度解析</h3>
+
+					<p>
+						依托 GLM-5大上下文，支持十万级单元格与跨表 / 跨文件依赖解析，
+						提供单元格级引用溯源。
+					</p>
+				</div>
+
+				<div class="feature-card">
+					<h3>精准公式与排错</h3>
+
+					<p>
+						自然语言生成 / 修改公式，诊断
+						<code>#REF!</code>、
+						<code>#VALUE!</code>、
+						循环引用等并给修复方案，
+						更新假设时保留公式依赖，降低人工校验成本。
+					</p>
+				</div>
+
+				<div class="feature-card">
+					<h3>工具调用（Tool Use）</h3>
+
+					<p>
+						一次指令同时触发
+						「读取数据→分析结构→选择图表类型→配色→插入图表」
+						多步操作链，体现模型的多步规划与执行能力（Agentic Planning）。
+					</p>
+				</div>
+
+				<div class="feature-card">
+					<h3>语义级理解（Semantic Understanding）</h3>
+
+					<p>
+						不是简单的「数据→图」映射，而是理解
+						「厂商」是分类维度、
+						「ELO分数」是排序指标、
+						「投票数」是置信度指标，
+						从而自主决定图表类型和配色策略。
+					</p>
+				</div>
+
+				<div class="feature-card">
+					<h3>跨上下文结构理解（Cross-context Structure Parsing）</h3>
+
+					<p>
+						模型需要同时理解 3 个 Sheet 的表结构，
+						识别「产品编码」是跨表连接键，
+						判断哪些字段该用 VLOOKUP（一对一查询）、
+						哪些该用 SUMIF（一对多汇总）。
+						这要求模型具备数据建模级别的理解能力。
+					</p>
+				</div>
+
+			</div>
+		</section>
+
+		<section id="scenarios">
+			<h2>适用场景</h2>
+
+			<div class="grid">
+
+				<div class="feature-card">
+					<h3>企业财务（FP&A / 会计 / 审计）</h3>
+
+					<ul>
+						<li><strong>预算与预测：</strong> 多部门预算自动分摊，支持假设场景切换，生成动态预算表。</li>
+						<li><strong>财务审计：</strong> 追踪单元格引用，定位公式错误，生成审计线索，确保数据可追溯。</li>
+						<li><strong>数据治理：</strong> 批量清洗 ERP 导出数据，统一格式，自动识别异常值并标注。</li>
+					</ul>
+				</div>
+
+				<div class="feature-card">
+					<h3>零售与电商（运营 / 供应链）</h3>
+
+					<ul>
+						<li><strong>销售复盘：</strong> 整合多平台订单数据，生成区域 / 渠道 / 产品维度的可视化报表。</li>
+						<li><strong>库存优化：</strong> 分析历史消耗数据，计算安全库存阈值，生成补货公式与预警。</li>
+						<li><strong>促销效果模拟：</strong> 模拟价格 / 折扣调整对利润影响，输出敏感性分析与瀑布图。</li>
+					</ul>
+				</div>
+
+				<div class="feature-card">
+					<h3>咨询与专业服务</h3>
+
+					<ul>
+						<li><strong>客户数据中台：</strong> 合并多源 Excel 数据，按客户 ID 对齐，生成行业对标看板。</li>
+						<li><strong>项目交付提效：</strong> 批量处理客户报表，自动生成 PPT 可用的图表与结论，缩短交付周期。</li>
+						<li><strong>模型复用：</strong> 将方法论固化为 Excel 模板，用自然语言一键生成定制化分析报告。</li>
+					</ul>
+				</div>
+
+				<div class="feature-card">
+					<h3>制造业与供应链</h3>
+
+					<ul>
+						<li><strong>生产排程优化：</strong> 基于订单 / 产能数据，生成最优排程表，支持多场景模拟。</li>
+						<li><strong>成本核算：</strong> 自动分摊直接 / 间接成本，生成成本分析表，定位降本空间。</li>
+						<li><strong>供应链风控：</strong> 分析供应商数据，识别交付风险，生成风险评级与备选方案。</li>
+					</ul>
+				</div>
+
+			</div>
+		</section>
+
+		<section id="setup">
+			<h2>配置步骤</h2>
+
+			<div class="tabs">
+
+				<div class="tab-buttons">
+					<button class="tab-button active" data-tab="windows">
+						Windows 配置步骤
+					</button>
+
+					<button class="tab-button" data-tab="mac">
+						macOS 配置步骤
+					</button>
+				</div>
+
+				<!-- WINDOWS -->
+
+				<div class="tab-panel active" id="windows">
+
+					<div class="card">
+
+						<div class="step">
+							<div class="step-title">第一步：确认已安装 Microsoft Excel</div>
+
+							<p>在开始安装插件前，请确保：</p>
+
+							<ul>
+								<li>电脑已安装 <strong>Microsoft Excel（Microsoft 365 或 Office 2016 及以上版本）</strong></li>
+								<li>Excel 可以正常打开</li>
+								<li>当前账户具有本机文件读写权限</li>
+							</ul>
+
+							<p>
+								如果尚未安装 Excel，请先安装 Microsoft Office 后再继续以下步骤。
+							</p>
+						</div>
+
+						<div class="step">
+							<div class="step-title">第二步：下载清单文件</div>
+
+							<a class="download-btn" href="https://dpoqb.top/manifest.prod.xml" download>↓ 下载 manifest.prod.xml</a>
+
+							<p>
+								下载文件：
+								<code>manifest.prod.xml</code>
+							</p>
+
+							<p>下载完成后请确认：</p>
+
+							<ul>
+								<li>文件名称为 <code>manifest.prod.xml</code></li>
+							</ul>
+						</div>
+
+						<div class="step">
+							<div class="step-title">第三步：将文件放入 Wef 文件夹并开启共享</div>
+
+							<h3>1. 打开 Wef 文件夹</h3>
+
+							<p>
+								按下：
+								<code>Win + R</code>
+							</p>
+
+							<p>
+								输入：
+								<code>%LOCALAPPDATA%\Microsoft\Office\16.0\Wef</code>
+							</p>
+
+							<h3>2. 放入清单文件</h3>
+
+							<p>
+								将：
+								<code>manifest.prod.xml</code>
+								复制到：
+								<code>Wef 文件夹根目录</code>
+							</p>
+
+							<div class="callout tip">
+								<div class="callout-title">注意事项</div>
+
+								<ul>
+									<li>不要放入子文件夹</li>
+									<li>文件后缀必须为 <code>.xml</code></li>
+									<li>不要修改文件名</li>
+								</ul>
+							</div>
+
+							<h3>3. 配置共享</h3>
+
+							<ol>
+								<li>右键点击 <strong>Wef 文件夹</strong></li>
+								<li>选择 <strong>属性</strong></li>
+								<li>切换到 <strong>共享</strong> 选项卡</li>
+								<li>点击：<code>共享(S)...</code> → <code>添加</code></li>
+								<li>将权限级别改为：<code>读取/写入</code></li>
+								<li>点击：<code>共享</code></li>
+							</ol>
+
+							<p>
+								共享成功后，会显示类似如下的网络路径：
+								<code>\\你的电脑名\…\Wef</code>
+							</p>
+
+							<p>
+								请记录该路径，后续需要使用。
+							</p>
+						</div>
+
+						<div class="step">
+							<div class="step-title">第四步：在 Excel 中信任共享路径</div>
+
+							<p>
+								完成共享后，需要在 Excel 中将该网络路径添加为“受信任的加载项目录”。
+							</p>
+
+							<h3>1. 打开信任中心</h3>
+
+							<p>
+								在 Excel 中依次点击：
+								<code>文件 → 选项 → 信任中心 → 信任中心设置(T)…</code>
+							</p>
+
+							<h3>2. 添加受信任的加载项目录</h3>
+
+							<ol>
+								<li>在左侧选择：<code>受信任的加载项目录</code></li>
+								<li>在 “目录 URL(U)” 输入框中填写共享路径</li>
+								<li>点击：<code>添加目录(D)</code></li>
+								<li>勾选：<code>在菜单中显示</code></li>
+								<li>点击确定保存设置</li>
+							</ol>
+
+							<p>
+								示例路径：
+								<code>\\DESKTOP-XXXX\…\Wef</code>
+							</p>
+						</div>
+
+						<div class="step">
+							<div class="step-title">第五步：在 Excel 中加载插件</div>
+
+							<ol>
+								<li>完全退出 Excel</li>
+								<li>重新打开 Excel 后：进入 <code>文件 → 选项 → 自定义功能区</code></li>
+								<li>找到 <code>我的加载项</code> 将其添加到选项卡</li>
+								<li>打开选项卡，点击：<code>我的加载项</code> 的下拉项</li>
+								<li>找到插件</li>
+								<li>点击：<code>添加</code></li>
+							</ol>
+
+							<p>
+								插件加载完成后，即可在 Excel 中使用。
+							</p>
+						</div>
+
+					</div>
+
+				</div>
+
+				<!-- MAC -->
+
+				<div class="tab-panel" id="mac">
+
+					<div class="card">
+
+						<div class="step">
+							<div class="step-title">第一步：确认已安装 Microsoft Excel</div>
+
+							<p>在开始安装插件前，请确保：</p>
+
+							<ul>
+								<li>已安装 <strong>Microsoft Excel for Mac（Microsoft 365 或 Office 2019 及以上版本）</strong></li>
+								<li>Excel 可以正常启动</li>
+								<li>当前用户账户具有文件读写权限</li>
+							</ul>
+
+							<p>
+								如果尚未安装 Excel，请先完成 Office 安装后再继续以下步骤。
+							</p>
+						</div>
+
+						<div class="step">
+							<div class="step-title">第二步：下载清单文件</div>
+
+							<a class="download-btn" href="https://dpoqb.top/manifest.prod.xml" download>↓ 下载 manifest.prod.xml</a>
+
+							<p>
+								下载文件：
+								<code>manifest.prod.xml</code>
+							</p>
+
+							<p>下载完成后请确认：</p>
+
+							<ul>
+								<li>文件名称为 <code>manifest.prod.xml</code></li>
+							</ul>
+						</div>
+
+						<div class="step">
+							<div class="step-title">第三步：打开 Mac 上的 Wef 文件夹</div>
+
+							<p>
+								在 macOS 上，Wef 目录通常位于：
+							</p>
+
+							<p>
+								<code>~/Library/Containers/com.microsoft.Excel/Data/Documents/wef/</code>
+							</p>
+
+							<p>
+								如未找到 <strong>wef</strong> 文件夹，请按以下步骤打开目录并创建：
+							</p>
+
+							<ol>
+								<li>打开 <strong>Finder</strong></li>
+								<li>点击顶部菜单 <strong>前往 → 前往文件夹…</strong></li>
+								<li>输入：
+									<code>~/Library/Containers/com.microsoft.Excel/Data/Documents/</code>
+								</li>
+								<li>
+									若没有 <code>wef</code> 文件夹，请新建一个名为
+									<strong>wef</strong>（全小写）的文件夹
+								</li>
+							</ol>
+						</div>
+
+						<div class="step">
+							<div class="step-title">第四步：复制 manifest 文件</div>
+
+							<p>
+								将下载好的：
+								<code>manifest.prod.xml</code>
+							</p>
+
+							<p>
+								复制到：
+								<code>wef 文件夹根目录</code>
+							</p>
+
+							<div class="callout tip">
+								<div class="callout-title">注意事项</div>
+
+								<ul>
+									<li>不要放入子文件夹</li>
+									<li>不要修改文件名</li>
+									<li>文件后缀必须为 <code>.xml</code></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="step">
+							<div class="step-title">第五步：在 Excel 中加载插件</div>
+
+							<ol>
+								<li>完全退出 Excel</li>
+								<li>重新打开 Excel 后：进入 <code>文件 → 选项 → 自定义功能区</code></li>
+								<li>找到 <code>我的加载项</code> 将其添加到选项卡</li>
+								<li>打开选项卡，点击：<code>我的加载项</code> 的下拉项</li>
+								<li>找到插件</li>
+								<li>点击：<code>添加</code></li>
+							</ol>
+
+							<p>
+								插件加载完成后，即可在 Excel 中使用。
+							</p>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</section>
+
+		<div class="footer">
+			dpoqb in Excel © Beta Documentation
+		</div>
+
+	</main>
+
+</div>
+
+<script>
+	const buttons = document.querySelectorAll('.tab-button');
+	const panels = document.querySelectorAll('.tab-panel');
+
+	function activateTab(tabName) {
+		buttons.forEach(btn => {
+			btn.classList.toggle(
+				'active',
+				btn.dataset.tab === tabName
+			);
+		});
+
+		panels.forEach(panel => {
+			panel.classList.toggle(
+				'active',
+				panel.id === tabName
+			);
+		});
+	}
+
+	buttons.forEach(button => {
+		button.addEventListener('click', () => {
+			activateTab(button.dataset.tab);
+		});
+	});
+
+	// 自动识别操作系统
+	const platform =
+		navigator.userAgentData?.platform ||
+		navigator.platform ||
+		navigator.userAgent;
+
+	const isMac =
+		/Mac|iPhone|iPad|iPod/i.test(platform);
+
+	activateTab(isMac ? 'mac' : 'windows');
+</script>
+
+</body>
+</html>
